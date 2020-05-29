@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet"
 import './App.sass';
 import './Meow.sass';
 
-function App(props) {
+export const App: React.FC = () => {
 
     return (
         <div>
@@ -16,4 +16,3 @@ function App(props) {
     );
 }
 
-export default App;
