@@ -13,6 +13,7 @@
     "allowJs": true,
     // Don't emit; allow Babel to transform files.
     "noEmit": true,
+    "experimentalDecorators": true,
     // Enable strictest settings like strictNullChecks & noImplicitAny.
     "strict": true,
     // Import non-ES modules as default imports.
@@ -39,5 +40,5 @@
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true
-  },
+  }
 }

@@ -1,10 +1,9 @@
 {
-  "name": "memestock",
+  "name": "project",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production"
   },
@@ -14,11 +13,21 @@
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-react": "^7.9.4",
+    "@typescript-eslint/eslint-plugin": "^4.9.0",
+    "@typescript-eslint/eslint-plugin-tslint": "^4.9.0",
+    "@typescript-eslint/parser": "^4.9.0",
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.5.3",
     "dotenv": "^8.2.0",
     "dotenv-webpack": "^1.8.0",
+    "eslint": "^7.14.0",
+    "eslint-plugin-jsdoc": "^30.7.8",
+    "eslint-plugin-no-null": "^1.0.2",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-sonarjs": "^0.5.0",
+    "eslint-plugin-sort-imports-es6-autofix": "^0.5.0",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
     "mini-css-extract-plugin": "^0.9.0",
@@ -42,7 +51,7 @@
     "react-dom": "^16.13.1",
     "react-helmet": "^6.0.0",
     "ts-loader": "^7.0.5",
-    "typescript": "^3.9.3"
+    "typescript": "^4.1.2"
   },
   "repository": "https://github.com/Verrok/wbr.git"
 }

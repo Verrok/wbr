@@ -1,6 +1,6 @@
 import * as React from "react";
-import './App.sass';
-import './Meow.sass';
+
+import "./App.sass";
 
 export const App: React.FC = () => {
 
@@ -9,5 +9,5 @@ export const App: React.FC = () => {
             <h1>My React App!</h1>
         </div>
     );
-}
+};
 
