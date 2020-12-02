@@ -8,64 +8,85 @@ const path = require("path");
 require('dotenv').config();
 
 
-const config = {
-  entry: "./src/index.js",
-  output: {
-    path: path.join(__dirname, "/dist"),
-    hashDigestLength: 15,
-    filename: 'bundle.[hash].js',
-  },
-  node: {
-    fs: 'empty'
-  },
-  resolve: {
-    extensions: ['.ts', '.tsx', '.js']
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(ts|js)x?$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader"
-        },
+const config = (env, argv) => (
+    {
+      entry: "./src/index.js",
+      output: {
+        path: path.join(__dirname, "/dist"),
+        filename: "[name].[hash].js"
       },
-      {
-        test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      devServer: {
+        historyApiFallback: true,
+        hot: true
       },
-      {
-        test: /\.s[ac]ss$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader?url=false', 'sass-loader'],
+      node: {
+        fs: 'empty'
       },
-      {
-        test: /\.(png|jpe?g|gif|svg)$/i,
-        use: [
+      resolve: {
+        extensions: ['.ts', '.tsx', '.js']
+      },
+      module: {
+        rules: [
           {
-            loader: 'file-loader',
+            test: /\.(ts|js)x?$/,
+            exclude: /node_modules/,
+            use: {
+              loader: "babel-loader"
+            },
           },
-        ],
-      }
-    ]
-  },
+          {
+            test: /\.css$/,
+            use: [MiniCssExtractPlugin.loader, 'css-loader'],
+          },
+          {
+            test: /\.s[ac]ss$/,
+            use: [process.env.MODE === "development" ? "style-loader" : MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
+          },
+          {
+            test: /\.(png|jpe?g|gif|svg)$/i,
+            use: [
+              {
+                loader: 'file-loader',
+              },
+            ],
+          }
+        ]
+      },
 
-  cache: true,
-  plugins: [
-    new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      template: "./src/index.html",
-      favicon: "./src/favicon.ico"
-    }),
-    new MiniCssExtractPlugin({
-      filename: 'style.[hash].css',
-    }),
-    new DotEnv()
-  ],
-  optimization: {
-    minimize: true,
-    minimizer: [new TerserPlugin()],
-  },
-};
+      cache: true,
+      plugins: [
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+          template: "./src/index.html",
+          favicon: "./src/favicon.ico"
+        }),
+        new MiniCssExtractPlugin({
+          filename: 'style.[hash].css',
+        }),
+        new DotEnv({
+          path: argv.mode === "development" ? "./.env" : "./prod.env"
+        })
+      ],
+      optimization: {
+        minimize: true,
+        minimizer: [new TerserPlugin()],
+        // splitChunks: {
+        //   chunks: "all"
+        // }
+        runtimeChunk: "single",
+        splitChunks: {
+          chunks: "all",
+          maxInitialRequests: Infinity,
+          minSize: 0,
+          cacheGroups: {
+            vendor: {
+              test: /[\\/]node_modules[\\/]/
+            }
+          }
+        }
+      }
+    }
+);
 
 
 module.exports = config;
